@@ -109,11 +109,11 @@ angular
         // ignore non-numeric characters
         value = value.replace(/[a-zA-Z!\?>:;\|<@#%\^&\*\)\(\+\/\\={}\[\]_]/g, '')
 
-        var number = (Math.floor(util.toFloat(value) * 100) / 100).toFixed(2)
+        var number = (Math.floor(util.toFloat(value) * 100) / 100).toFixed(0)
 
         if (ngModel.$validators.currency(number)) {
 
-          var formatted = filter(number)
+          var formatted = filter(number, '$', 0);
           var specialCharacters = util.uniqueChars(number, formatted)
 
           // did we add a comma or currency symbol?
