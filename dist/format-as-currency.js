@@ -105,6 +105,7 @@ angular
         return filter(value)
       })
 
+      var lastNumber;
       ngModel.$parsers.push(function (value) {
         // ignore non-numeric characters
         value = value.replace(/[a-zA-Z!\?>:;\|<@#%\^&\*\)\(\+\/\\={}\[\]_]/g, '')
@@ -112,7 +113,11 @@ angular
         var number = (Math.floor(util.toFloat(value) * 100) / 100).toFixed(0)
 
         if (ngModel.$validators.currency(number)) {
-
+          if(number.length <= 10) {
+            lastNumber = number;
+          } else {
+            number = lastNumber;
+          }
           var formatted = filter(number, '$', 0);
           var specialCharacters = util.uniqueChars(number, formatted)
 
